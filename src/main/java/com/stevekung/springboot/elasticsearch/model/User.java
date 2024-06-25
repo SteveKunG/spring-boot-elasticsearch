@@ -37,9 +37,12 @@ public class User
     @Field(type = FieldType.Text)
     private String lastName;
 
+    @Field(type = FieldType.Text)
+    private String phoneNumber;
+
     @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
     private Date birthDate;
-    
+
     @Field(type = FieldType.Binary)
     private byte[] image;
 

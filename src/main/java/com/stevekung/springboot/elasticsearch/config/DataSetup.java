@@ -41,6 +41,7 @@ public class DataSetup
         user.setPrefix("Mr.");
         user.setFirstName("Wasinthorn");
         user.setLastName("Suksri");
+        user.setPhoneNumber("088-544-2355");
         user.setBirthDate(DateUtils.date("02/02/1999"));
         user.setCardId("16799248692387");
         this.setUserImage(user);
@@ -54,6 +55,7 @@ public class DataSetup
         user.setPrefix("Mr.");
         user.setFirstName("Muha");
         user.setLastName("Haha");
+        user.setPhoneNumber("02-434-4352");
         user.setBirthDate(DateUtils.date("02/02/2006"));
         user.setCardId("8375598208475");
         this.setUserImage(user);
@@ -67,6 +69,7 @@ public class DataSetup
         user.setPrefix("Mrs.");
         user.setFirstName("Somya");
         user.setLastName("Yasom");
+        user.setPhoneNumber("05-123-9707");
         user.setBirthDate(DateUtils.date("02/02/1998"));
         user.setCardId("43899650938896");
         this.setUserImage(user);
@@ -80,6 +83,7 @@ public class DataSetup
         user.setPrefix("Mr.");
         user.setFirstName("Awow");
         user.setLastName("Meow");
+        user.setPhoneNumber("087-235-4577");
         user.setBirthDate(DateUtils.date("02/02/2010"));
         user.setCardId("43899650938896");
         this.setUserImage(user);
@@ -140,6 +144,8 @@ public class DataSetup
         System.out.println(this.userRepository.findByEmailContains("gmail.com"));
 
         System.out.println(this.userRepository.findByInsuranceFormIsNull());
+
+        System.out.println(this.userRepository.findByPhoneNumberStartingWith("08"));
     }
 
     private void setUserImage(User user)

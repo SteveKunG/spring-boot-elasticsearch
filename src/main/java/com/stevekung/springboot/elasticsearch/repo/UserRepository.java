@@ -15,6 +15,8 @@ public interface UserRepository extends ElasticsearchRepository<User, String>
 
     Optional<User> findByAddressContaining(String address);
 
+    List<User> findByPhoneNumberStartingWith(String phoneNumber);
+
     List<User> findByPrefixStartingWith(String prefix);
 
     List<User> findByEmailContains(String email);
