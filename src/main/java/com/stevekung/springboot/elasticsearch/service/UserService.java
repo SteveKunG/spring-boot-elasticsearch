@@ -3,7 +3,9 @@ package com.stevekung.springboot.elasticsearch.service;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.StreamUtils;
@@ -20,7 +22,7 @@ public class UserService
 
     public List<User> findAll()
     {
-        return StreamUtils.createStreamFromIterator(this.userRepository.findAll().iterator()).toList();
+        return StreamUtils.createStreamFromIterator(this.userRepository.findAll().iterator()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public List<User> findByAgeBetween(int startAge, int endAge)

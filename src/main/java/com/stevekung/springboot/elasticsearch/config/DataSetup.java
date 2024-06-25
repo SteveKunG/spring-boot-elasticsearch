@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +91,6 @@ public class DataSetup
 
         userList.add(user);
 
-        userList.sort(Comparator.comparing(User::getFullName));
         this.userRepository.saveAll(userList);
 
         this.userRepository.findByFirstNameLike("Was").ifPresentOrElse(userx ->

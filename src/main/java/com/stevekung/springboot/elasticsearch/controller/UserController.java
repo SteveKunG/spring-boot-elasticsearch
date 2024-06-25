@@ -1,6 +1,7 @@
 package com.stevekung.springboot.elasticsearch.controller;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,23 @@ public class UserController
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
-    public List<User> getAll()
+    @GetMapping
+    public List<User> getAll(@RequestParam(value = "sort", required = false, defaultValue = "fullname") String sort, @RequestParam(value = "order", required = false, defaultValue = "asc") String order)
     {
-        return this.userService.findAll();
+        var list = this.userService.findAll();
+
+        switch (sort)
+        {
+            case "fullname" -> list.sort(Comparator.comparing(User::getFullName));
+            case "prefix" -> list.sort(Comparator.comparing(User::getPrefix));
+            case "birthdate" -> list.sort(Comparator.comparing(User::getBirthDate));
+            case "form_status" -> list.sort(Comparator.comparing(userx -> userx.getInsuranceForm() != null ? userx.getInsuranceForm().getStatus() : userx.getFullName()));
+        }
+        if (order.equals("desc"))
+        {
+            list = list.reversed();
+        }
+        return list;
     }
 
     @GetMapping("/{name}")
@@ -48,7 +62,7 @@ public class UserController
         return this.userService.findByAgeBetween(start, end);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<?> addUser(@RequestBody User user) throws IOException
     {
         if (user.getId() == null)
