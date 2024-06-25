@@ -24,7 +24,6 @@ import lombok.ToString;
 public class User
 {
     @Id
-    @ReadOnlyProperty
     @Field(type = FieldType.Keyword)
     private String id;
 
