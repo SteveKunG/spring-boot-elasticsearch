@@ -1,0 +1,6 @@
+.form-group.required .control-label:after {
+    content: "*";
+    color: red;
+    font-family: 'Glyphicons Halflings';
+    font-weight: normal;
+}
