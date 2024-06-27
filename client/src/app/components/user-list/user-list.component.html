@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>User List</h2>
+      <a routerLink="/add-user" class="btn btn-primary mb-3">Add User</a>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Birth Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.fullName }}</td>
+            <td>{{ user.birthDate | date:'dd/MM/yyyy'}}</td>
+            <td><pre>{{ user.insuranceForm | json }}</pre></td>
+            <td>
+              <a [routerLink]="['/edit-user', user.id]" class="btn btn-info btn-sm">Edit</a>
+              <button (click)="deleteUser(user.id)" class="btn btn-danger btn-sm">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
