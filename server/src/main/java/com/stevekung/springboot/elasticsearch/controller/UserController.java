@@ -25,17 +25,19 @@ import com.stevekung.springboot.elasticsearch.service.UserService;
 import com.stevekung.springboot.elasticsearch.utils.Utils;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping(UserController.USER_API)
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController
 {
+    private static final String USER_API = "/api/v1/users";
+
     @Autowired
     private UserService userService;
 
     @GetMapping("/")
     public RedirectView redirectSlash(RedirectAttributes attributes)
     {
-        return new RedirectView("/api/v1/users");
+        return new RedirectView(UserController.USER_API);
     }
 
     @GetMapping
@@ -60,32 +62,32 @@ public class UserController
     @GetMapping("/id/{id}")
     public Optional<User> getUserById(@PathVariable("id") String id)
     {
-        return this.userService.userRepository.findById(id);
+        return this.userService.findById(id);
     }
 
     @PutMapping("/id/{id}")
     public User updateUser(@PathVariable("id") String id, @RequestBody User user)
     {
         user.setId(id);
-        return this.userService.userRepository.save(user);
+        return this.userService.save(user);
     }
 
     @DeleteMapping("/id/{id}")
     public void deleteUser(@PathVariable("id") String id)
     {
-        this.userService.userRepository.deleteById(id);
+        this.userService.deleteById(id);
     }
 
     @GetMapping("/name/{name}")
     public List<User> getUsersByName(@PathVariable("name") String name)
     {
-        return this.userService.userRepository.findByFirstNameLikeOrLastNameLike(name, name);
+        return this.userService.findByFirstNameLikeOrLastNameLike(name, name);
     }
 
     @GetMapping("/status/{status}")
     public List<User> getUsersByStatus(@PathVariable("status") String status)
     {
-        return this.userService.userRepository.findByInsuranceForm_Status(status);
+        return this.userService.findByInsuranceForm_Status(status);
     }
 
     @GetMapping("/age")
@@ -103,7 +105,7 @@ public class UserController
         }
 
         System.out.println("User saved");
-        this.userService.userRepository.save(user);
+        this.userService.save(user);
         return ResponseEntity.ok(user);
     }
 }
