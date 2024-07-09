@@ -1,6 +1,6 @@
 package com.stevekung.springboot.elasticsearch.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
@@ -38,8 +38,8 @@ public class User
     @Field(type = FieldType.Text)
     private String phoneNumber;
 
-    @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
-    private Date birthDate;
+    @Field(type = FieldType.Date, format = DateFormat.strict_year_month_day, pattern = "uuuu-MM-dd")
+    private LocalDate birthDate;
 
     @Field(type = FieldType.Binary)
     private byte[] image;

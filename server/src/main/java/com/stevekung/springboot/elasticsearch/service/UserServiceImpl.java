@@ -1,7 +1,6 @@
 package com.stevekung.springboot.elasticsearch.service;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.query.MoreLikeThisQuery;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.data.util.StreamUtils;
 import org.springframework.stereotype.Service;
@@ -55,7 +53,7 @@ public class UserServiceImpl implements UserService
     {
         return this.findAll().stream().filter(userx ->
         {
-            var start = userx.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            var start = userx.getBirthDate();
             var end = LocalDate.now();
             var years = ChronoUnit.YEARS.between(start, end);
             return years >= startAge && years <= endAge;
